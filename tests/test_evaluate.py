@@ -56,3 +56,21 @@ def test_depth_mean_identical_to_slice_by_slice(tmp_path, fmt, chunks):
     assert got.dtype == np.float32 and got.shape == (37, 45)
     assert np.array_equal(got, want)
     assert np.allclose(got, v.mean(0), atol=1e-4)
+
+
+def test_eval_ink_window_limits_scoring(tmp_path):
+    lab = np.zeros((40, 40), np.uint8)
+    lab[5:10, 5:10] = 255
+    lab[25:35, 25:35] = 255
+    sup = np.full_like(lab, 255)
+    pred = np.where(lab > 0, 220, 30).astype(np.uint8)
+    pred[25:35, 25:35] = 30                 # ink outside the window is missed (the model never ran there)
+    tifffile.imwrite(tmp_path / "p.tif", pred)
+    _zarr_level0(tmp_path / "lab.zarr", lab)
+    _zarr_level0(tmp_path / "sup.zarr", sup)
+    full = evaluate.eval_ink(str(tmp_path / "p.tif"), str(tmp_path / "lab.zarr"), None, None, mask=str(tmp_path / "sup.zarr"))
+    win = evaluate.eval_ink(str(tmp_path / "p.tif"), str(tmp_path / "lab.zarr"), None, None, mask=str(tmp_path / "sup.zarr"),
+                            window=(0, 0, 20, 20))
+    assert full["labels"]["metrics_in_mask"]["roc_auc"] < 1.0
+    assert win["labels"]["metrics_in_mask"]["roc_auc"] == 1.0
+    assert win["labels"]["metrics_in_mask"]["n_pixels"] == 400

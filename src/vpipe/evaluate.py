@@ -102,7 +102,9 @@ def _depth_mean(path: str, level: int) -> np.ndarray:
 
 def eval_ink(pred_path: str, labels: str | None, ref_pred: str | None, ref_image: str | None,
              label_level: int = 0, mask: str | None = None,
-             align_ref: str | None = None, align_ref_level: int = 2, align_ours: str | None = None) -> dict:
+             align_ref: str | None = None, align_ref_level: int = 2, align_ours: str | None = None,
+             window: tuple[int, int, int, int] | None = None) -> dict:
+    """window = (y0, x0, h, w) on the prediction grid: score only inside it (for a model run on a crop)."""
     from vpipe import align
 
     pred = _read_image(pred_path)
@@ -122,6 +124,11 @@ def eval_ink(pred_path: str, labels: str | None, ref_pred: str | None, ref_image
             shift = align.texture_shift(_depth_mean(align_ref, align_ref_level), _depth_mean(align_ours, 0))
             y = align.shift_image(y, shift["dy"], shift["dx"])
             sup = align.shift_image(sup, shift["dy"], shift["dx"])
+        if window is not None:
+            wy, wx, wh, ww = window
+            inside = np.zeros(pred.shape, bool)
+            inside[wy:wy + wh, wx:wx + ww] = True
+            sup = sup & inside
         out["labels"] = {
             "path": labels,
             "mask": mask,
