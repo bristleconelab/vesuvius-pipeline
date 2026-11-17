@@ -1,0 +1,53 @@
+{
+  "prediction": "/data/vesuvius/runs/heldout-0841-ag1/bakeoff/s43-20k/ink.tif",
+  "shape": [
+    4640,
+    4720
+  ],
+  "labels": {
+    "path": "/data/vesuvius/raw/PHerc0841/20260220214732-auto_grown_20260220144552896/ink-labels/2.403um-volume-20260319124803/20260918/inklabels.zarr",
+    "mask": "/data/vesuvius/raw/PHerc0841/20260220214732-auto_grown_20260220144552896/ink-labels/2.403um-volume-20260319124803/20260918/supervision.zarr",
+    "level": 0,
+    "source_shape": [
+      18080,
+      18400
+    ],
+    "mask_source_shape": [
+      18080,
+      18400
+    ],
+    "texture_alignment": {
+      "dy": -7,
+      "dx": -7,
+      "r": 0.73555593393472,
+      "r_second": 0.7186745861555274,
+      "on_search_edge": false
+    },
+    "metrics_in_mask": {
+      "n_pixels": 983597,
+      "ink_fraction": 0.32345462623411825,
+      "roc_auc": 0.7334974739525268,
+      "average_precision": 0.5919694919784051,
+      "best_f05": 0.5544458531125597,
+      "best_threshold": 118,
+      "precision_at_best": 0.6311605300661519,
+      "recall_at_best": 0.37306733637383743
+    },
+    "metrics_in_mask_unaligned": {
+      "n_pixels": 983597,
+      "ink_fraction": 0.32345462623411825,
+      "roc_auc": 0.7209059151755974,
+      "average_precision": 0.5794241411246326,
+      "best_f05": 0.5438363675522756,
+      "best_threshold": 118,
+      "precision_at_best": 0.6208355253975242,
+      "recall_at_best": 0.36350263555755324
+    }
+  },
+  "_meta": {
+    "seconds": 26.1,
+    "host": "f92912117530",
+    "python": "3.14.10",
+    "numpy": "2.4.6"
+  }
+}

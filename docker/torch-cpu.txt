@@ -1,0 +1,10 @@
+# CPU-only builds of the torch / torchvision versions pinned in ScrollPrize/villa vesuvius/uv.lock
+# at 2d3fb38d33a18b257230c0bd23986436c3d4722e (torch 2.12.1, torchvision 0.27.1), CPython 3.14, Linux.
+# Hashes from https://download.pytorch.org/whl/cpu/{torch,torchvision}/ (x86_64, aarch64).
+# Installed with --no-deps: every other requirement of these wheels is already installed from villa's lock.
+torch==2.12.1+cpu \
+    --hash=sha256:618120d79360688595e61162147d37e1d69fc3f2e13d60584a1eb6a74c74735a \
+    --hash=sha256:1b9ad70d0a300d6bd883fffc153a6c0f9bc64bf4190519aeeed0373807bffbcc
+torchvision==0.27.1+cpu \
+    --hash=sha256:a1b6e90fe0beeac762acdea272eee40f64f8766106632b7c4b6f66038d60550f \
+    --hash=sha256:290ebb142880dfcaa1feec3b448dcd3c704c2f0391232a1eed9eff5ea5c65b35

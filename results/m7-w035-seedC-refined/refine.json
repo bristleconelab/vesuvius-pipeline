@@ -1,0 +1,8 @@
+{
+  "radius": 5.0,
+  "iterations": 3,
+  "grid_sigma": 1.5,
+  "tiles": 169,
+  "median_total_shift": 0.5038340840779677,
+  "p90_total_shift": 1.7445965091547153
+}

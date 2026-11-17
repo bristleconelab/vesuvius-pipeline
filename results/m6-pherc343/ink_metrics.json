@@ -1,0 +1,229 @@
+{
+ "what": "PHerc 343 First Letters image, M6 Arm A: our ink maps at d=+1 with the published sidecar statistics",
+ "opacity_rule": "a = (R - B) / 135 over the data panel; pixels pure black in both images and annotation (row-line) pixels excluded",
+ "published_png_sha256": "59307c84ea65091de1bea14a3b75d44069bfe1fb498b3445f698ec3d1b8c1c78",
+ "ours_png_sha256": "af5d0810956398752c64cb0405a7a464d284aac30611a59558c10b45eb1ae663",
+ "png_sha256_equal": false,
+ "pearson_r_target": 0.999,
+ "pearson_r_pass": true,
+ "boxes_all_pass": true,
+ "agreement": {
+  "panel": [
+   173,
+   182,
+   5641,
+   2455
+  ],
+  "n_pixels": 8776036,
+  "excluded_annotation_pixels": 30152,
+  "pearson_r": 0.9999855329884746,
+  "mean_abs_diff": 0.00012248506425148364,
+  "p99_abs_diff": 0.007407407407407404,
+  "max_abs_diff": 0.03703703703703698,
+  "ink_level": 0.0,
+  "ink_fraction_published": 0.15012962572168118,
+  "ink_fraction_ours": 0.1500688921513084,
+  "pearson_r_letter_boxes": 0.999986877999297,
+  "n_pixels_letter_boxes": 1911139,
+  "ratio_range": [
+   0.8,
+   1.25
+  ],
+  "boxes_total": 18,
+  "boxes_ratio_pass": 18,
+  "boxes": [
+   {
+    "id": 1,
+    "n_pixels": 163474,
+    "pearson_r": 0.9999828284897657,
+    "ink_fraction_published": 0.26119138211581044,
+    "ink_fraction_ours": 0.26105068695939415,
+    "ink_fraction_ratio": 0.9994613330835168,
+    "pass": true
+   },
+   {
+    "id": 2,
+    "n_pixels": 44496,
+    "pearson_r": 0.9999836608545851,
+    "ink_fraction_published": 0.25923678532901834,
+    "ink_fraction_ours": 0.25925925925925924,
+    "ink_fraction_ratio": 1.000086692674469,
+    "pass": true
+   },
+   {
+    "id": 3,
+    "n_pixels": 88707,
+    "pearson_r": 0.9999281580582997,
+    "ink_fraction_published": 0.15977318588161024,
+    "ink_fraction_ours": 0.15984082428669666,
+    "ink_fraction_ratio": 1.0004233401538136,
+    "pass": true
+   },
+   {
+    "id": 4,
+    "n_pixels": 204960,
+    "pearson_r": 0.9999926566942894,
+    "ink_fraction_published": 0.3101775956284153,
+    "ink_fraction_ours": 0.31004098360655735,
+    "ink_fraction_ratio": 0.9995595683770094,
+    "pass": true
+   },
+   {
+    "id": 5,
+    "n_pixels": 233349,
+    "pearson_r": 0.999994358416736,
+    "ink_fraction_published": 0.3899995286030795,
+    "ink_fraction_ours": 0.38996524519068004,
+    "ink_fraction_ratio": 0.9999120937081071,
+    "pass": true
+   },
+   {
+    "id": 6,
+    "n_pixels": 124644,
+    "pearson_r": 0.999975346775859,
+    "ink_fraction_published": 0.34512692147235324,
+    "ink_fraction_ours": 0.3451830814158724,
+    "ink_fraction_ratio": 1.000162722581245,
+    "pass": true
+   },
+   {
+    "id": 7,
+    "n_pixels": 116501,
+    "pearson_r": 0.999993263012895,
+    "ink_fraction_published": 0.27713066840627976,
+    "ink_fraction_ours": 0.2769675796774277,
+    "ink_fraction_ratio": 0.9994115096326582,
+    "pass": true
+   },
+   {
+    "id": 8,
+    "n_pixels": 108531,
+    "pearson_r": 0.9999904925673251,
+    "ink_fraction_published": 0.45668057974219345,
+    "ink_fraction_ours": 0.45653315642535314,
+    "ink_fraction_ratio": 0.9996771850536681,
+    "pass": true
+   },
+   {
+    "id": 9,
+    "n_pixels": 103875,
+    "pearson_r": 0.999985026469088,
+    "ink_fraction_published": 0.45652948255114323,
+    "ink_fraction_ours": 0.45626955475330927,
+    "ink_fraction_ratio": 0.9994306440048922,
+    "pass": true
+   },
+   {
+    "id": 10,
+    "n_pixels": 72543,
+    "pearson_r": 0.9999842767098567,
+    "ink_fraction_published": 0.6263595384806253,
+    "ink_fraction_ours": 0.6262630439877038,
+    "ink_fraction_ratio": 0.9998459439235882,
+    "pass": true
+   },
+   {
+    "id": 11,
+    "n_pixels": 54668,
+    "pearson_r": 0.9999789059097456,
+    "ink_fraction_published": 0.6115460598521987,
+    "ink_fraction_ours": 0.6110338772225068,
+    "ink_fraction_ratio": 0.9991624790619766,
+    "pass": true
+   },
+   {
+    "id": 12,
+    "n_pixels": 156618,
+    "pearson_r": 0.9999788925689412,
+    "ink_fraction_published": 0.5081727515355834,
+    "ink_fraction_ours": 0.5078918132015477,
+    "ink_fraction_ratio": 0.9994471597833873,
+    "pass": true
+   },
+   {
+    "id": 13,
+    "n_pixels": 55251,
+    "pearson_r": 0.9999781644463706,
+    "ink_fraction_published": 0.3710521076541601,
+    "ink_fraction_ours": 0.3707082224756113,
+    "ink_fraction_ratio": 0.9990732159406859,
+    "pass": true
+   },
+   {
+    "id": 14,
+    "n_pixels": 67039,
+    "pearson_r": 0.9999887203809958,
+    "ink_fraction_published": 0.4374319426005758,
+    "ink_fraction_ours": 0.4373871925297215,
+    "ink_fraction_ratio": 0.9998976982097187,
+    "pass": true
+   },
+   {
+    "id": 15,
+    "n_pixels": 91443,
+    "pearson_r": 0.9999786530531487,
+    "ink_fraction_published": 0.43837144450641385,
+    "ink_fraction_ours": 0.43824021521603623,
+    "ink_fraction_ratio": 0.9997006436162251,
+    "pass": true
+   },
+   {
+    "id": 16,
+    "n_pixels": 81093,
+    "pearson_r": 0.9999882959429702,
+    "ink_fraction_published": 0.6133205085519096,
+    "ink_fraction_ours": 0.6128149162073175,
+    "ink_fraction_ratio": 0.999175647418369,
+    "pass": true
+   },
+   {
+    "id": 17,
+    "n_pixels": 57816,
+    "pearson_r": 0.9999787383504894,
+    "ink_fraction_published": 0.8292514182925141,
+    "ink_fraction_ours": 0.8289400857894008,
+    "ink_fraction_ratio": 0.9996245619889872,
+    "pass": true
+   },
+   {
+    "id": 18,
+    "n_pixels": 117754,
+    "pearson_r": 0.9999776374424286,
+    "ink_fraction_published": 0.6851826689539209,
+    "ink_fraction_ours": 0.6851911612344379,
+    "ink_fraction_ratio": 1.0000123941846486,
+    "pass": true
+   }
+  ]
+ },
+ "ink_maps_vs_sidecar": [
+  {
+   "file": "concat_w047-w048_R5B2_z9500-11000__dnative__L66s26_reverse.tif",
+   "model": "dnative",
+   "published_sha256": "e95e10b8ab4d39f024a11f7214f0a9d478ffa80cbc2b4376d70088816c7d9520",
+   "ours_sha256": "f22c572e155264235f2706bc1de366878daab66fa30658beb6273118f5f22191",
+   "equal": false
+  },
+  {
+   "file": "concat_w047-w048_R5B2_z9500-11000__hecate__L66zc33.50_reverse.png",
+   "model": "hecate",
+   "published_sha256": "e3562577d270fb0b2b4ab99da1f46d29693b22a41236830e901ddc0143c24a97",
+   "ours_sha256": "f97d6846291867dc118fdde77fbf73921c93e0268a6e5bcb5f7bcb390543a44b",
+   "equal": false
+  },
+  {
+   "file": "concat_w047-w048_R5B2_z9500-11000__hybrid_3d2d-seed42__L66s26_reverse.tif",
+   "model": "ink9-42",
+   "published_sha256": "065c7a12af3f0d05fc906c70b96ca216bb6dac3698654075bac75cc1c36b953b",
+   "ours_sha256": "ac0ec32bf3b96343e52976af7551259eab972c1dc8bdaf55e96666c17b9f2151",
+   "equal": false
+  },
+  {
+   "file": "concat_w047-w048_R5B2_z9500-11000__hybrid_3d2d-seed43__L66s26_reverse.tif",
+   "model": "ink9-43",
+   "published_sha256": "a60d9c9bedd22cee16f5c94913a21b751c2664b32bb1aeeeb7c1c6d1d1d4ddc4",
+   "ours_sha256": "3e53086f64062cdcd0cc551833a46073e60db42df39cdb554b0c982c9350e559",
+   "equal": false
+  }
+ ]
+}

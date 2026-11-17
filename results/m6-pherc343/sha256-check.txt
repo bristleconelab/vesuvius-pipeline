@@ -1,0 +1,16 @@
+concat_w047-w048_R5B2_z9500-11000.json: OK
+concat_w047-w048_R5B2_z9500-11000.png: OK
+concat_w047-w048_R5B2_z9500-11000.tifxyz/meta.json: OK
+concat_w047-w048_R5B2_z9500-11000.tifxyz/x.tif: OK
+concat_w047-w048_R5B2_z9500-11000.tifxyz/y.tif: OK
+concat_w047-w048_R5B2_z9500-11000.tifxyz/z.tif: OK
+w047_R5B2_z9500-11000.tifxyz/meta.json: OK
+w047_R5B2_z9500-11000.tifxyz/model.pt: OK
+w047_R5B2_z9500-11000.tifxyz/x.tif: OK
+w047_R5B2_z9500-11000.tifxyz/y.tif: OK
+w047_R5B2_z9500-11000.tifxyz/z.tif: OK
+w048_R5B2_z9500-11000.tifxyz/meta.json: OK
+w048_R5B2_z9500-11000.tifxyz/model.pt: OK
+w048_R5B2_z9500-11000.tifxyz/x.tif: OK
+w048_R5B2_z9500-11000.tifxyz/y.tif: OK
+w048_R5B2_z9500-11000.tifxyz/z.tif: OK

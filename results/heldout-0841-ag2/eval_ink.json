@@ -1,0 +1,53 @@
+{
+  "prediction": "/data/vesuvius/runs/heldout-0841-ag2/ink.tif",
+  "shape": [
+    3760,
+    4900
+  ],
+  "labels": {
+    "path": "/data/vesuvius/raw/PHerc0841/20260221022814-auto_grown_20260220174252405/ink-labels/2.403um-volume-20260319124803/20260918/inklabels.zarr",
+    "mask": "/data/vesuvius/raw/PHerc0841/20260221022814-auto_grown_20260220174252405/ink-labels/2.403um-volume-20260319124803/20260918/supervision.zarr",
+    "level": 0,
+    "source_shape": [
+      14660,
+      19100
+    ],
+    "mask_source_shape": [
+      14660,
+      19100
+    ],
+    "texture_alignment": {
+      "dy": -7,
+      "dx": -7,
+      "r": 0.7454799936692416,
+      "r_second": 0.7369510886300252,
+      "on_search_edge": false
+    },
+    "metrics_in_mask": {
+      "n_pixels": 1279092,
+      "ink_fraction": 0.22671316840383648,
+      "roc_auc": 0.7050377744946476,
+      "average_precision": 0.4969688662678558,
+      "best_f05": 0.5154475527633446,
+      "best_threshold": 157,
+      "precision_at_best": 0.6836488375047644,
+      "recall_at_best": 0.25978405928541626
+    },
+    "metrics_in_mask_unaligned": {
+      "n_pixels": 1279092,
+      "ink_fraction": 0.22671316840383648,
+      "roc_auc": 0.7009948116649918,
+      "average_precision": 0.4954438245694177,
+      "best_f05": 0.5189981100311507,
+      "best_threshold": 157,
+      "precision_at_best": 0.6910465542521994,
+      "recall_at_best": 0.2600357947080386
+    }
+  },
+  "_meta": {
+    "seconds": 174.6,
+    "host": "c6549c2c5a0f",
+    "python": "3.14.10",
+    "numpy": "2.4.6"
+  }
+}

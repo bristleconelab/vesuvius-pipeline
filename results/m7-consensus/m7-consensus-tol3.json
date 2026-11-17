@@ -1,0 +1,33 @@
+{
+  "tol_vx": 3.0,
+  "min_votes": 1,
+  "surfaces": {
+    "/data/vesuvius/runs/m7-w035-seedC/surface": {
+      "vertices": 41611,
+      "trusted": 6783,
+      "on_sheet_tol_vx": 6.0,
+      "all_vertices_on_sheet": 0.6595611737281007,
+      "trusted_fraction": 0.1630097810675062,
+      "precision_of_trusted": 0.6991006929087424,
+      "recall_of_on_sheet": 0.17278192749134633
+    },
+    "/data/vesuvius/runs/m7-w035-seedD/surface": {
+      "vertices": 21309,
+      "trusted": 3444,
+      "on_sheet_tol_vx": 6.0,
+      "all_vertices_on_sheet": 0.20850344924679712,
+      "trusted_fraction": 0.16162184992256792,
+      "precision_of_trusted": 0.7671312427409989,
+      "recall_of_on_sheet": 0.5946432590591942
+    },
+    "/data/vesuvius/runs/m7-w035-seedE/surface": {
+      "vertices": 20729,
+      "trusted": 3408,
+      "on_sheet_tol_vx": 6.0,
+      "all_vertices_on_sheet": 0.3132326692073906,
+      "trusted_fraction": 0.1644073520189107,
+      "precision_of_trusted": 0.6379107981220657,
+      "recall_of_on_sheet": 0.33482211612505774
+    }
+  }
+}

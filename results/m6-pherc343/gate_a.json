@@ -1,0 +1,12 @@
+{
+ "shape": [
+  66,
+  2560,
+  6720
+ ],
+ "layer34_sha256": "df1a3e8d4e61de845eca0b94952dc207b73605c1f6093312e5283980b895f8f8",
+ "layer34_match": true,
+ "mask_sha256": "f60549218edb9871e5acb8930e176a09fe1aaafef28c10a2261014f70a58dcbc",
+ "mask_match": true,
+ "valid_fraction": 0.6417548130125272
+}

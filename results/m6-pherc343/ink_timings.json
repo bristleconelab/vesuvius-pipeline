@@ -1,0 +1,62 @@
+[
+ {
+  "step": "build_concat",
+  "tiling_or_model": "-",
+  "seconds": 2
+ },
+ {
+  "step": "pad_render",
+  "tiling_or_model": "-",
+  "seconds": 8
+ },
+ {
+  "step": "plain",
+  "tiling_or_model": "hybrid_3d2d-seed42",
+  "seconds": 1575
+ },
+ {
+  "step": "plain",
+  "tiling_or_model": "hybrid_3d2d-seed43",
+  "seconds": 229
+ },
+ {
+  "step": "plain",
+  "tiling_or_model": "dnative",
+  "seconds": 221
+ },
+ {
+  "step": "plain",
+  "tiling_or_model": "hecate",
+  "seconds": 11624
+ },
+ {
+  "step": "padded",
+  "tiling_or_model": "hybrid_3d2d-seed42",
+  "seconds": 237
+ },
+ {
+  "step": "padded",
+  "tiling_or_model": "hybrid_3d2d-seed43",
+  "seconds": 231
+ },
+ {
+  "step": "padded",
+  "tiling_or_model": "dnative",
+  "seconds": 226
+ },
+ {
+  "step": "padded",
+  "tiling_or_model": "hecate",
+  "seconds": 3939
+ },
+ {
+  "step": "merge",
+  "tiling_or_model": "-",
+  "seconds": 2
+ },
+ {
+  "step": "image",
+  "tiling_or_model": "-",
+  "seconds": 8
+ }
+]

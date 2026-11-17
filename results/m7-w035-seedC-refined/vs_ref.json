@@ -1,0 +1,41 @@
+{
+  "grown_area_vx2": 16533530.712254198,
+  "reference_area_vx2": 25065432.31857387,
+  "grown_vertices": 41611,
+  "reference_vertices": 63503,
+  "grown_to_ref": {
+    "median": 3.7925848983941544,
+    "p90": 17.189600850998282
+  },
+  "ref_to_grown": {
+    "median": 9.120450016367606,
+    "p90": 740.1733235209626
+  },
+  "precision_within": {
+    "2": 0.12980990923211339,
+    "6": 0.6480560139792253,
+    "10": 0.7854425541209591
+  },
+  "coverage_within": {
+    "2": 0.08501720630076455,
+    "6": 0.42551022841066233,
+    "10": 0.5172390841320553
+  },
+  "signed_normal_offset": {
+    "median": 0.6168788682058561,
+    "abs_p90": 14.999421686616317,
+    "off_sheet_fraction": 0.4151872391029997,
+    "band_vx": [
+      4.0,
+      40.0
+    ]
+  },
+  "area_ratio": 0.6596148233997384,
+  "grown_area_cm2": 14.491150938122955,
+  "reference_area_cm2": 21.969110493050664,
+  "voxel_um": 9.362,
+  "inputs": {
+    "grown": "/data/vesuvius/runs/m7-w035-seedC-refined/surface",
+    "reference": "/data/vesuvius/raw/PHerc0139/20260317000000-w035_2026031718/mesh/20260317000000-on-20250728140407-9.362um.tifxyz"
+  }
+}

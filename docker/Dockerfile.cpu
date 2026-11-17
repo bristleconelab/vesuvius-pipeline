@@ -1,0 +1,80 @@
+# CPU-slim variant of docker/Dockerfile: same Ubuntu 24.04 base, apt list, villa commit, VC3D build and vpipe,
+# but torch / torchvision are the CPU-only wheels from download.pytorch.org instead of the CUDA 13 builds that
+# villa's uv.lock pins from PyPI. Everything else comes from villa's lock unchanged (uv sync --frozen).
+# Keep the apt list and ARGs identical to docker/Dockerfile (tests/test_docker.py checks this).
+#
+#   podman build -t vpipe:cpu -f docker/Dockerfile.cpu .
+FROM docker.io/library/ubuntu:24.04
+
+ARG VILLA_REF=2d3fb38d33a18b257230c0bd23986436c3d4722e
+ARG VC3D_TAG=stable
+ARG VC3D_ASSET=VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage
+ARG UV_VERSION=0.13.8
+ARG TORCH_CPU_INDEX=https://download.pytorch.org/whl/cpu
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_INSTALL_DIR=/opt/uv-python \
+    PATH=/opt/uv/bin:$PATH
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      build-essential ca-certificates curl git ninja-build pkg-config cmake \
+      libblosc-dev libblosc2-dev libboost-dev libceres-dev libconcurrentqueue-dev \
+      libcurl4-openssl-dev libeigen3-dev liblz4-dev libopencv-contrib-dev libopencv-dev \
+      libsuitesparse-dev libjpeg-dev libpng-dev libtiff-dev libzstd-dev nlohmann-json3-dev \
+      qt6-base-dev zlib1g-dev libsqlite3-dev libssl-dev \
+      libegl1 libglx0 libopengl0 libice6 libsm6 libx11-xcb1 libx11-6 libcom-err2 libexpat1 \
+      libfontconfig1 libfreetype6 libgmp10 libgpg-error0 libharfbuzz0b libuuid1 libxcb1 \
+      time \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN curl -LsSf "https://astral.sh/uv/${UV_VERSION}/install.sh" | env UV_INSTALL_DIR=/opt/uv/bin sh
+
+# villa at a pinned commit (blobless clone keeps the image small)
+# a stalled transfer aborts after 60 s below 1 KB/s and is retried, instead of hanging the build
+RUN for i in 1 2 3 4 5; do \
+      rm -rf /opt/villa; \
+      git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=60 clone --filter=blob:none \
+        https://github.com/ScrollPrize/villa.git /opt/villa && break; \
+      echo "clone attempt $i failed"; sleep 10; \
+    done \
+ && git -c http.lowSpeedLimit=1000 -c http.lowSpeedTime=60 -C /opt/villa checkout -q "${VILLA_REF}" \
+ && git -C /opt/villa rev-parse HEAD > /opt/villa.REF
+
+# 1. villa's locked env without torch, torchvision, triton and the CUDA runtime wheels (names taken from the
+#    lock, so the list follows VILLA_REF). 2. The CPU wheels of the same torch / torchvision versions, hash-pinned,
+#    --no-deps because their remaining requirements are already installed from the lock. 3. Fail the build if the
+#    CPU pins drift from the lock or any CUDA package slipped in. Do not run plain `uv sync`/`uv run` in this env
+#    afterwards: that would restore the CUDA wheels from the lock (use `uv run --no-sync`).
+COPY docker/torch-cpu.txt /opt/torch-cpu.txt
+WORKDIR /opt/villa/vesuvius
+RUN skip=$(grep -oE '^name = "(torch|torchvision|triton|cuda-[a-z0-9-]+|nvidia-[a-z0-9-]+)"$' uv.lock | cut -d'"' -f2) \
+ && echo "not installed from the lock:" $skip \
+ && uv sync --extra models --frozen $(printf -- '--no-install-package %s ' $skip) \
+ && uv pip install --python .venv/bin/python --no-deps --require-hashes \
+      --index-url "${TORCH_CPU_INDEX}" -r /opt/torch-cpu.txt \
+ && lock_torch=$(sed -n '/^name = "torch"$/{n;s/^version = "\(.*\)"$/\1/p;}' uv.lock) \
+ && lock_tv=$(sed -n '/^name = "torchvision"$/{n;s/^version = "\(.*\)"$/\1/p;}' uv.lock) \
+ && uv run --no-sync python -c "import sys, importlib.metadata as md, torch, torchvision, vc_reader; \
+cuda = sorted(d.metadata['Name'] for d in md.distributions() if d.metadata['Name'].lower().startswith(('nvidia-', 'cuda-', 'triton'))); \
+assert torch.__version__ == sys.argv[1] + '+cpu', (torch.__version__, sys.argv[1]); \
+assert torchvision.__version__ == sys.argv[2] + '+cpu', (torchvision.__version__, sys.argv[2]); \
+assert torch.version.cuda is None and not cuda, (torch.version.cuda, cuda); \
+print('torch', torch.__version__, 'torchvision', torchvision.__version__, 'threads', torch.get_num_threads())" \
+      "$lock_torch" "$lock_tv"
+
+# VC3D CLI tools, extracted (no FUSE in containers) and called through AppRun
+RUN mkdir -p /opt/vc3d && cd /opt/vc3d \
+ && curl -fL --retry 5 -o vc3d.AppImage "https://github.com/ScrollPrize/villa/releases/download/${VC3D_TAG}/${VC3D_ASSET}" \
+ && sha256sum vc3d.AppImage | tee vc3d.AppImage.sha256 \
+ && chmod +x vc3d.AppImage && ./vc3d.AppImage --appimage-extract >/dev/null && rm vc3d.AppImage \
+ && printf '#!/bin/sh\nexec /opt/vc3d/squashfs-root/AppRun "$@"\n' > /usr/local/bin/vc3d && chmod +x /usr/local/bin/vc3d \
+ && vc3d vc_render_tifxyz --help >/dev/null
+
+COPY pyproject.toml /opt/vpipe/
+COPY src /opt/vpipe/src
+COPY scripts /opt/vpipe/scripts
+RUN uv pip install --python /opt/villa/vesuvius/.venv/bin/python /opt/vpipe
+
+ENV VIRTUAL_ENV=/opt/villa/vesuvius/.venv PATH=/opt/villa/vesuvius/.venv/bin:/opt/uv/bin:$PATH
+WORKDIR /work
