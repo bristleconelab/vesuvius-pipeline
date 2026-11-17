@@ -30,8 +30,9 @@ Distances along the reference normal, in voxels; "within 2 / 6" = share of trace
 
 Sheets are ~11-13 voxels apart in these regions (m7 profile along w035's normals: bands at -10, 0..+2 and +13 voxels),
 so offsets of 9-13 voxels mean the neighbouring wrap. Even the best case (C, median offset 0.07) keeps only 13 % of its
-vertices within 2 voxels of the written sheet, and none of the traced patches shows letters when inked (Hecate and the
-public 9 um models, both depth directions, five depth windows).
+vertices within 2 voxels of the written sheet, and none of the traced patches shows letters when inked: the w035 seeds B
+and C with ink_9um seed42 step 75k in both depth directions, and the PHerc. 343 control with Hecate in five depth windows
+plus the reverse direction.
 
 ## Two local fixes that do not work, and why
 
