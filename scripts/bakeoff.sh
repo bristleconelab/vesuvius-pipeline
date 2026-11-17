@@ -8,6 +8,7 @@ ENGINE="${ENGINE:-podman}" IMAGE="${IMAGE:-vpipe:dev}" ROOT="${ROOT:-/data/vesuv
 RUNS="${RUNS:-heldout-w030 heldout-w045 heldout-0841-w00 heldout-0841-ag1 heldout-0841-ag2}"
 ENS=()
 for e in "$@"; do ENS+=(--ensemble-checkpoint "$ROOT/checkpoints/$e"); done
+read -r -a XARGS <<< "${INFER_EXTRA:-}"     # extra inference flags, e.g. a depth window
 # torch/OpenMP threads per container: set VPIPE_THREADS=<cores/n> when n jobs share the machine,
 # otherwise every container opens one thread per core and they thrash each other
 THREADS="${VPIPE_THREADS:-$(nproc)}"
@@ -25,7 +26,7 @@ for r in $RUNS; do
   if [ ! -f "$OUT/ink.tif" ]; then
     rc=0
     run python -m vesuvius.ink_detection.inference.infer "$RUN/render.zarr" "$ROOT/checkpoints/$CKPT" \
-      "$OUT/ink.tif.part.tif" "${ENS[@]}" --overlap 0.5 --blend-mode hann --batch-size 8 --device cpu ${INFER_EXTRA:-} \
+      "$OUT/ink.tif.part.tif" "${ENS[@]}" --overlap 0.5 --blend-mode hann --batch-size 8 --device cpu "${XARGS[@]}" \
       > "$OUT/infer.log" 2>&1 || rc=$?
     if [ "$rc" -ne 0 ] || [ ! -f "$OUT/ink.tif.part.tif" ]; then echo "$NAME $r INFER FAILED rc=$rc"; continue; fi
     mv "$OUT/ink.tif.part.tif" "$OUT/ink.tif"

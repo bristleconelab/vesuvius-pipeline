@@ -25,4 +25,4 @@ EOF
   /usr/bin/time -v vc3d vc_grow_seg_from_seed -v "$PRED" -t "$OUT/surface" -p "$OUT/params.json" \
   --segment-name surface --rng-seed 1 -s "$X" "$Y" "$Z" > "$OUT/grow.log" 2>&1
 grep -E "Elapsed|Maximum resident|Exit status" "$OUT/grow.log" || true
-cat "$OUT/surface/meta.json" 2>/dev/null | head -30
+head -30 "$OUT/surface/meta.json" 2>/dev/null

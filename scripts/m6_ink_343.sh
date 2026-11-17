@@ -124,6 +124,6 @@ run python -I "$S/make_submission_image.py" --mesh "$REPO/outputs/$N.tifxyz" \
   --rows "$REPO/inputs/${N}_rows.json" --letters "$REPO/inputs/${N}_letter_boxes.json" --letter-markers off \
   --sizes-csv "$W/image/${N}_letter_sizes.csv" --out-dir "$W/image" --force
 log image - $(( $(stamp) - t ))
-(cd "$M" && sha256sum *_reverse.tif *_reverse.png) > "$W/map_sha256.txt"
+(cd "$M" && sha256sum ./*_reverse.tif ./*_reverse.png) > "$W/map_sha256.txt"
 sha256sum "$W/image/$N.png" "$REPO/outputs/$N.png" > "$W/image_sha256.txt"
 echo "done: $W/image/$N.png"
