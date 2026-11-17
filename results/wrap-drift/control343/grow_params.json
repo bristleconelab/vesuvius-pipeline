@@ -1,0 +1,1 @@
+{"mode":"seed","generations":60,"step_size":20,"thread_limit":1,"voxelsize":8.64,"min_area_cm":0.0,"normal_grid_path":"/data/vesuvius/runs/lead-control-343/grids","x_min":5211,"x_max":6611,"y_min":3359,"y_max":4759,"z_min":9823,"z_max":11223}

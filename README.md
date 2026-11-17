@@ -171,6 +171,12 @@ to stay on the sheet, e.g. on a sharper (2.4 um) surface prediction or with a CT
 
 ![Offset of each grown vertex from w035](figures/m7_offset_maps.png)
 
+**Wrap drift, measured.** Across four reference cases (PHerc. 343 next to the First Letters text, and three w035 seeds)
+CPU tracing on the published 9 um m7 prediction keeps only 4-13 % of its vertices within 2 voxels of the written sheet;
+three of the four drift a full wrap (median offset 9-13 voxels). Two local fixes (CT-peak refinement, wrap-consistent
+band snapping) do not help, because neighbouring sheets are connected in the 9 um prediction itself. Details, numbers
+and what this implies: [docs/wrap-drift.md](docs/wrap-drift.md).
+
 **What these numbers do and do not show**
 
 - w035 is in the training set of the `ink_9um` models, so the label metrics are a reproduction check, **not** a

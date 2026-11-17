@@ -1,0 +1,11 @@
+{
+  "vertices": 40801,
+  "kept": 39782,
+  "kept_fraction": 0.9750251219332859,
+  "median_abs_offset": 0.5,
+  "p90_abs_offset": 10.0,
+  "seed_vertex": [
+    103,
+    103
+  ]
+}

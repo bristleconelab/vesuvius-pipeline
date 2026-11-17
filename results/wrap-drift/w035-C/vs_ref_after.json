@@ -1,0 +1,41 @@
+{
+  "grown_area_vx2": 15454227.265833467,
+  "reference_area_vx2": 25065432.31857387,
+  "grown_vertices": 39782,
+  "reference_vertices": 63503,
+  "grown_to_ref": {
+    "median": 3.5765075096443124,
+    "p90": 13.978331688132535
+  },
+  "ref_to_grown": {
+    "median": 9.707252230737216,
+    "p90": 759.5282373551553
+  },
+  "precision_within": {
+    "2": 0.14315468466130288,
+    "6": 0.6687548663379185,
+    "10": 0.8096077731637685
+  },
+  "coverage_within": {
+    "2": 0.0876726590688729,
+    "6": 0.41341515267114903,
+    "10": 0.5056923847217586
+  },
+  "signed_normal_offset": {
+    "median": -0.016317946223880497,
+    "abs_p90": 12.964427980444714,
+    "off_sheet_fraction": 0.4050918115753958,
+    "band_vx": [
+      4.0,
+      40.0
+    ]
+  },
+  "area_ratio": 0.6165553846993355,
+  "grown_area_cm2": 13.54517337154506,
+  "reference_area_cm2": 21.969110493050664,
+  "voxel_um": 9.362,
+  "inputs": {
+    "grown": "/data/vesuvius/runs/snap-w035-C/surface",
+    "reference": "/data/vesuvius/raw/PHerc0139/20260317000000-w035_2026031718/mesh/20260317000000-on-20250728140407-9.362um.tifxyz"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "grown_area_vx2": 1398705.803769743,
+  "reference_area_vx2": 10578615.413889617,
+  "grown_vertices": 3593,
+  "reference_vertices": 27598,
+  "grown_to_ref": {
+    "median": 11.40781595980134,
+    "p90": 27.985477348461174
+  },
+  "ref_to_grown": {
+    "median": 947.3276771663383,
+    "p90": 1500.3724879635179
+  },
+  "precision_within": {
+    "2": 0.12154576856649396,
+    "6": 0.3881332757628094,
+    "10": 0.47134067357512954
+  },
+  "coverage_within": {
+    "2": 0.015587507844512533,
+    "6": 0.05257899885562405,
+    "10": 0.06425117206246078
+  },
+  "signed_normal_offset": {
+    "median": -9.501254893606054,
+    "abs_p90": 22.436013689052267,
+    "off_sheet_fraction": 0.6067933218192285,
+    "band_vx": [
+      4.0,
+      40.0
+    ]
+  },
+  "area_ratio": 0.13222012040755884,
+  "grown_area_cm2": 1.0441282876908984,
+  "reference_area_cm2": 7.896894092006945,
+  "voxel_um": 8.64,
+  "inputs": {
+    "grown": "/data/vesuvius/runs/lead-control-343/surface",
+    "reference": "/data/vesuvius/src/pherc343-first-letters/outputs/concat_w047-w048_R5B2_z9500-11000.tifxyz"
+  }
+}
