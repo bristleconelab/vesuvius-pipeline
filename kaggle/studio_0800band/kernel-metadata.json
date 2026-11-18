@@ -1,0 +1,17 @@
+{
+  "id": "KAGGLE_USER/vesuvius-studio-0800band",
+  "title": "vesuvius studio 0800band",
+  "code_file": "script.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": ["anaelcasanova/band0800-render-0", "anaelcasanova/band0800-render-1",
+                     "anaelcasanova/band0800-render-2", "anaelcasanova/band0800-render-3"],
+  "model_sources": []
+}
