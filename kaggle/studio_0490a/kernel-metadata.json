@@ -1,0 +1,21 @@
+{
+  "id": "KAGGLE_USER/vesuvius-studio-0490a",
+  "title": "vesuvius studio 0490a",
+  "code_file": "script.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [
+    "KAGGLE_USER/vesuvius-render-0490a-0",
+    "KAGGLE_USER/vesuvius-render-0490a-1",
+    "KAGGLE_USER/vesuvius-render-0490a-2",
+    "KAGGLE_USER/vesuvius-render-0490a-3"
+  ],
+  "model_sources": []
+}
