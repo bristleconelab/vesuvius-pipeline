@@ -210,6 +210,7 @@ and what this implies: [docs/wrap-drift.md](docs/wrap-drift.md).
 | `kaggle/flatten_0358/` | flattens the snapped PHerc0358 windings from `lane_0358` (vendored, MIT) |
 | `kaggle/render_0358/part0..3` | 31-layer surface volumes of the flattened PHerc0358 windings, four parts (vendored, MIT) |
 | `kaggle/herculex_0358/` | whole-scroll unwrap of PHerc0358 (CT -> sheet nodes -> exact winding levels -> laid-out tifxyz pieces) with HerculeX's cuda lane on 2x T4 (HerculeX @ 9f59e966, MIT); ink off by default; resumable across sessions |
+| `kaggle/herculex_ink_0358/` | HerculeX's ink stage (Reader v3, MIT) on the 263 display mosaics of >= 4 cm2 of `herculex_0358`, largest first on both T4s, then 384 px window triage (row/column ink-profile std) with contact sheets; resumable |
 
 Each folder has a `kernel-metadata.json` with the placeholder owner `KAGGLE_USER`. Push one with your account:
 
