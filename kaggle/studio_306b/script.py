@@ -50,6 +50,11 @@ def small(a, k=8):
     H, Wd = a.shape[0] // k * k, a.shape[1] // k * k
     return a[:H, :Wd].reshape(H // k, k, Wd // k, k).mean((1, 3))
 
+def pearson(a, b, m):
+    # the claim map is about 28 % NaN, and NaN poisons np.corrcoef: score only pixels finite in both arrays
+    f = m & np.isfinite(a) & np.isfinite(b)
+    return float(np.corrcoef(a[f], b[f])[0, 1])
+
 def png(a, path):
     v = a[np.isfinite(a)]
     lo, hi = np.percentile(v, [1, 99.5])
@@ -72,8 +77,8 @@ for name, idx in orders.items():
     m = (cs > 0) | (ps > 0)
     res[name] = {'seconds': round(time.time() - t), 'mean': float(ps[m].mean()),
                  'frac_gt_0.5': float((np.asarray(p) > 0.5).mean()),
-                 'pearson_vs_claim': float(np.corrcoef(ps[m], cs[m])[0, 1]),
-                 'pearson_vs_depth_shuffle_claim': float(np.corrcoef(ps[m], ss[m])[0, 1])}
+                 'pearson_vs_claim': pearson(ps, cs, m),
+                 'pearson_vs_depth_shuffle_claim': pearson(ps, ss, m)}
     print(name, json.dumps(res[name]), flush=True)
     os.remove(f'{W}/planes_{name}.npy')
     json.dump(res, open(f'{OUT}/summary.json', 'w'), indent=1)
