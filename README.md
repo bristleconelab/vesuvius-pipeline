@@ -209,6 +209,7 @@ and what this implies: [docs/wrap-drift.md](docs/wrap-drift.md).
 | `kaggle/lane_0358/` | PHerc0358 z 7000-7750 spiral fit + snap on 2x T4 with the official umbilicus and lasagna (vendored pod lane, MIT) |
 | `kaggle/flatten_0358/` | flattens the snapped PHerc0358 windings from `lane_0358` (vendored, MIT) |
 | `kaggle/render_0358/part0..3` | 31-layer surface volumes of the flattened PHerc0358 windings, four parts (vendored, MIT) |
+| `kaggle/herculex_0358/` | whole-scroll unwrap of PHerc0358 (CT -> sheet nodes -> exact winding levels -> laid-out tifxyz pieces) with HerculeX's cuda lane on 2x T4 (HerculeX @ 9f59e966, MIT); ink off by default; resumable across sessions |
 
 Each folder has a `kernel-metadata.json` with the placeholder owner `KAGGLE_USER`. Push one with your account:
 
