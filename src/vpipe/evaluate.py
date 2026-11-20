@@ -119,6 +119,7 @@ def eval_ink(pred_path: str, labels: str | None, ref_pred: str | None, ref_image
             sup = m > 0.5 * float(m.max())
         else:
             sup, m_src = valid, None
+        y_raw, sup_raw = y, sup  # unshifted, for the unaligned score
         shift = None
         if align_ref and align_ours:
             shift = align.texture_shift(_depth_mean(align_ref, align_ref_level), _depth_mean(align_ours, 0))
@@ -129,6 +130,7 @@ def eval_ink(pred_path: str, labels: str | None, ref_pred: str | None, ref_image
             inside = np.zeros(pred.shape, bool)
             inside[wy:wy + wh, wx:wx + ww] = True
             sup = sup & inside
+            sup_raw = sup_raw & inside
         out["labels"] = {
             "path": labels,
             "mask": mask,
@@ -139,9 +141,7 @@ def eval_ink(pred_path: str, labels: str | None, ref_pred: str | None, ref_image
             "metrics_in_mask": compare.ink_metrics(pred, y, sup),
         }
         if shift:
-            out["labels"]["metrics_in_mask_unaligned"] = compare.ink_metrics(
-                pred, align.shift_image(y, -shift["dy"], -shift["dx"]),
-                align.shift_image(sup, -shift["dy"], -shift["dx"]))
+            out["labels"]["metrics_in_mask_unaligned"] = compare.ink_metrics(pred, y_raw, sup_raw)
 
     if ref_pred:
         r = _read_image(ref_pred)

@@ -74,3 +74,33 @@ def test_eval_ink_window_limits_scoring(tmp_path):
     assert full["labels"]["metrics_in_mask"]["roc_auc"] < 1.0
     assert win["labels"]["metrics_in_mask"]["roc_auc"] == 1.0
     assert win["labels"]["metrics_in_mask"]["n_pixels"] == 400
+
+
+def test_eval_ink_unaligned_metrics_use_original_labels(tmp_path, monkeypatch):
+    """The unaligned score is the plain score of the unshifted labels and mask inside the same window,
+    not a round trip through shift(+d) and shift(-d), which zeroes edge rows and moves the window."""
+    from vpipe import align, compare
+
+    rng = np.random.default_rng(3)
+    lab = np.zeros((48, 48), np.uint8)
+    lab[0:4, 6:30] = 255                    # ink on the top edge: lost by a +dy shift and its inverse
+    lab[20:30, 20:30] = 255
+    lab[44:48, 10:40] = 255                 # ink on the bottom edge
+    sup = np.full_like(lab, 255)
+    pred = np.clip(np.where(lab > 0, 170, 70) + rng.integers(-60, 60, lab.shape), 0, 255).astype(np.uint8)
+    tifffile.imwrite(tmp_path / "p.tif", pred)
+    _zarr_level0(tmp_path / "lab.zarr", lab)
+    _zarr_level0(tmp_path / "sup.zarr", sup)
+    monkeypatch.setattr(evaluate, "_depth_mean", lambda path, level: np.zeros((48, 48), np.float32))
+    monkeypatch.setattr(align, "texture_shift", lambda ref, ours: {"dy": 3, "dx": -2})
+    r = evaluate.eval_ink(str(tmp_path / "p.tif"), str(tmp_path / "lab.zarr"), None, None,
+                          mask=str(tmp_path / "sup.zarr"), align_ref="ref.zarr", align_ours="ours.zarr",
+                          window=(0, 4, 40, 40))
+    inside = np.zeros(lab.shape, bool)
+    inside[0:40, 4:44] = True
+    y, m = lab > 127, sup > 127
+    unaligned = r["labels"]["metrics_in_mask_unaligned"]
+    assert unaligned == compare.ink_metrics(pred, y, m & inside)
+    assert unaligned["n_pixels"] == 40 * 40
+    assert r["labels"]["metrics_in_mask"] == compare.ink_metrics(
+        pred, align.shift_image(y, 3, -2), align.shift_image(m, 3, -2) & inside)
