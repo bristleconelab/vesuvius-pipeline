@@ -223,6 +223,10 @@ Not recommended or not applicable: #2536, #2411, #2521, group-idx 1, rendering 1
 ## 5. Untested (and how to test)
 
 - Nothing here was run on the test VM.
+- Checked 2026-11-20: `--prefetch-remote` exists in `vc_render_tifxyz.cpp` at f7756c7, and `--no-compile`,
+  `--loader-threads`, `--chunk-cache-size` exist in `infer.py` at `2d3fb38d`; `MALLOC_MMAP_MAX_` /
+  `MALLOC_TRIM_THRESHOLD_` are glibc environment variables, not flags. None is a default in `scripts/` until a test
+  below measures it as a win with unchanged output.
 - Gains for #2, #3, the heap env vars, `--no-compile`, `OMP_NUM_THREADS`, `--overlap 0.25` and OpenVINO on our 16-vCPU
   box are **unmeasured**. The cited numbers come from 2-4-core Zen 3 VMs (#2452/#2453) and a Xeon 4114 (#2536).
 - Test order:

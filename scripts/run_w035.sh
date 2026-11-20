@@ -4,10 +4,12 @@
 # Usage: scripts/run_w035.sh [RUN_DIR]     (RUN_DIR default /data/vesuvius/runs/w035-<timestamp>)
 set -euo pipefail
 ENGINE="${ENGINE:-podman}"
-IMAGE="${IMAGE:-vpipe:dev}"
+IMAGE="${IMAGE:-vpipe:cpu}"   # README: podman build -t vpipe:cpu -f docker/Dockerfile.cpu .
 ROOT="${ROOT:-/data/vesuvius}"
 RUN="${1:-$ROOT/runs/w035-$(date -u +%Y%m%dT%H%M%SZ)}"
-CKPT="hybrid_3d2d-seed42/step-020000.pth"
+# step-020000 is the checkpoint of the w035 image shown in Tutorial 5 ("both at checkpoint step-020000") and of the
+# README results; the tutorial's command line uses step-075000 (CKPT=hybrid_3d2d-seed42/step-075000.pth)
+CKPT="${CKPT:-hybrid_3d2d-seed42/step-020000.pth}"
 SEG=20260317000000-w035_2026031718
 RAW="$ROOT/raw/PHerc0139/$SEG"
 LAB="$RAW/ink-labels/9.362um-volume-20250728140407/20260918"
