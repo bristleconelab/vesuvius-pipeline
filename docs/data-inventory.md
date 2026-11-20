@@ -183,6 +183,7 @@ The cheapest complete chain with an official comparison target is PHerc0139 segm
 - The ink tutorial "assumes an NVIDIA GPU with a working CUDA installation". The 2.5D training example takes "about an hour and a half on a single H100", and full-segment inference "on the order of an hour on a single GPU". `--mask-path region.tif` limits inference to a region. — [tutorial5](https://scrollprize.org/tutorial5)
 - Tutorial training set (DOC): HF `ink/phercparis4/w00_20231016151002`, "about 25 GB", synced via `uvx --from huggingface_hub hf buckets sync hf://buckets/scrollprize/datasets/ink/phercparis4/w00_20231016151002 ./ink-dataset/phercparis4/w00_20231016151002`. It contains x/y/z.tif, meta.json, `<seg>.zarr`, `<seg>_inklabels.zarr/.tif`, `<seg>_supervision_mask.zarr/.tif`. MEASURED on HF: it also has `preds/tile256_stride128_layers1_63_hann_fwd.tif` (395.8 MB), an official prediction to compare against. — [tutorial5](https://scrollprize.org/tutorial5); HF API
 - The `ink_9um` labels set holds "24 segments annotated on pooled 2.4 µm renders … and 5 on native 9.362 µm renders". — [tutorial5](https://scrollprize.org/tutorial5)
+- The tutorial's inference command uses `step-075000.pth`, but the w035 seed42/seed43 images it shows (`ink-9um-w035-seed42-20k.webp`, `-seed43-20k.webp`) are captioned "both at checkpoint step-020000". Checked 2026-11-20 in `scrollprize.org/docs/07_tutorial5.md` (ScrollPrize/villa, main). `scrollprize/ink_9um` has both `hybrid_3d2d-seed42/step-020000.pth` and `step-075000.pth` (HF API, 2026-11-20).
 
 ### Inferences
 - On CPU only, run inference with `--mask-path` on a small crop of w035 and compare it pixel-wise to the published ink TIFF. Full-segment CPU inference timing is not documented and is likely many hours.
@@ -218,3 +219,22 @@ Use AWS CLI `--no-sign-request` (or s3fs/zarr streaming) for S3. Use `hf buckets
 
 ### Gaps
 - `rclone` against S3 with anonymous config was not tested. The documented path is AWS CLI.
+
+## 9. Pinned tool binaries
+
+### VC3D AppImage `f7756c7` (checked 2026-11-20)
+
+| | |
+|---|---|
+| Asset | `VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage`, 137,841,144 bytes |
+| sha256 | `17d9f2649c5f42b76c39e4e09ec87412002f505577e48400693c477b581e9c05` |
+| Primary URL | https://github.com/ScrollPrize/villa/releases/download/vc3d-archive-latest-433320258/VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage |
+| Fallback URL | https://github.com/ScrollPrize/villa/releases/download/stable/VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage |
+
+- The hash is the one already recorded in `kaggle/lead_screen/script.py`, and it equals the `digest` GitHub reports for
+  the asset on both releases (`gh release view <tag> -R ScrollPrize/villa --json assets`, same size on both).
+- `stable` is a rolling tag: it moves to the next stable build and the asset may then disappear from it.
+  `vc3d-archive-latest-433320258` (published 2026-11-03) is a per-build archive release named after its CI run, so it
+  is the better pin. Neither release is marked immutable by GitHub (`isImmutable: false`), so it can still be deleted.
+- `scripts/get_vc3d.sh`, both Dockerfiles and `kaggle/lead_screen/script.py` try the archive tag first, then
+  `stable`, and fail unless the file matches the sha256 above.

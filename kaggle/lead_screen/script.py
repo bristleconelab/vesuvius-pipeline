@@ -28,7 +28,13 @@ ASSET = 'VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage'
 VC3D_SHA = '17d9f2649c5f42b76c39e4e09ec87412002f505577e48400693c477b581e9c05'
 if not os.path.exists(f'{V}/squashfs-root/AppRun'):
     os.makedirs(V, exist_ok=True)
-    urllib.request.urlretrieve(f'https://github.com/ScrollPrize/villa/releases/download/stable/{ASSET}', f'{V}/vc3d.AppImage')
+    # per-build archive release first (holds this exact asset); the rolling `stable` tag only as a fallback
+    for tag in ('vc3d-archive-latest-433320258', 'stable'):
+        try:
+            urllib.request.urlretrieve(f'https://github.com/ScrollPrize/villa/releases/download/{tag}/{ASSET}', f'{V}/vc3d.AppImage')
+            break
+        except OSError as e:
+            print('VC3D not under release', tag, e, flush=True)
     assert hashlib.sha256(open(f'{V}/vc3d.AppImage', 'rb').read()).hexdigest() == VC3D_SHA, 'VC3D sha mismatch'
     sh(f'cd {V} && chmod +x vc3d.AppImage && ./vc3d.AppImage --appimage-extract >/dev/null && rm vc3d.AppImage')
 VC = f'{V}/squashfs-root/AppRun'

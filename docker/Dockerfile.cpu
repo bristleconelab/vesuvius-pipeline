@@ -7,8 +7,12 @@
 FROM docker.io/library/ubuntu:24.04
 
 ARG VILLA_REF=2d3fb38d33a18b257230c0bd23986436c3d4722e
-ARG VC3D_TAG=stable
+# VC3D_TAG is the per-build archive release that holds this exact asset; `stable` is a rolling tag and is
+# only the fallback. The download must match VC3D_SHA256 whichever tag served it.
+ARG VC3D_TAG=vc3d-archive-latest-433320258
+ARG VC3D_TAG_FALLBACK=stable
 ARG VC3D_ASSET=VC3D-f7756c7-2026-11-03-linux-x86_64.AppImage
+ARG VC3D_SHA256=17d9f2649c5f42b76c39e4e09ec87412002f505577e48400693c477b581e9c05
 ARG UV_VERSION=0.13.8
 ARG TORCH_CPU_INDEX=https://download.pytorch.org/whl/cpu
 
@@ -65,7 +69,11 @@ print('torch', torch.__version__, 'torchvision', torchvision.__version__, 'threa
 
 # VC3D CLI tools, extracted (no FUSE in containers) and called through AppRun
 RUN mkdir -p /opt/vc3d && cd /opt/vc3d \
- && curl -fL --retry 5 -o vc3d.AppImage "https://github.com/ScrollPrize/villa/releases/download/${VC3D_TAG}/${VC3D_ASSET}" \
+ && for tag in "${VC3D_TAG}" "${VC3D_TAG_FALLBACK}"; do \
+      curl -fL --retry 5 -o vc3d.AppImage "https://github.com/ScrollPrize/villa/releases/download/${tag}/${VC3D_ASSET}" && break; \
+      echo "VC3D asset not found under release ${tag}"; rm -f vc3d.AppImage; \
+    done \
+ && echo "${VC3D_SHA256}  vc3d.AppImage" | sha256sum -c - \
  && sha256sum vc3d.AppImage | tee vc3d.AppImage.sha256 \
  && chmod +x vc3d.AppImage && ./vc3d.AppImage --appimage-extract >/dev/null && rm vc3d.AppImage \
  && printf '#!/bin/sh\nexec /opt/vc3d/squashfs-root/AppRun "$@"\n' > /usr/local/bin/vc3d && chmod +x /usr/local/bin/vc3d \

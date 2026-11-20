@@ -20,10 +20,26 @@ def test_cpu_image_matches_main_image():
     assert cpu_base == base == "docker.io/library/ubuntu:24.04"
     assert cpu_apt == apt
     assert "libssl-dev" in apt
-    for k in ("VILLA_REF", "VC3D_TAG", "VC3D_ASSET", "UV_VERSION"):
+    for k in ("VILLA_REF", "VC3D_TAG", "VC3D_TAG_FALLBACK", "VC3D_ASSET", "VC3D_SHA256", "UV_VERSION"):
         assert cpu_args[k] == args[k], k
     assert "uv sync --extra models --frozen" in cpu_text
     assert "--no-install-package" in cpu_text and "COPY docker/torch-cpu.txt" in cpu_text
+
+
+def test_vc3d_download_is_hash_checked_everywhere():
+    """Every place that downloads the VC3D AppImage pins the same asset, tag and sha256 and verifies the hash."""
+    root = DOCKER.parent
+    _, _, args, _ = _parse("Dockerfile")
+    sha, tag, asset = args["VC3D_SHA256"], args["VC3D_TAG"], args["VC3D_ASSET"]
+    assert re.fullmatch(r"[0-9a-f]{64}", sha)
+    assert tag != "stable" and args["VC3D_TAG_FALLBACK"] == "stable"
+    for name in ("Dockerfile", "Dockerfile.cpu"):
+        assert 'echo "${VC3D_SHA256}  vc3d.AppImage" | sha256sum -c -' in (DOCKER / name).read_text(), name
+    get = (root / "scripts" / "get_vc3d.sh").read_text()
+    assert f'VC3D_SHA256="${{VC3D_SHA256:-{sha}}}"' in get and f'VC3D_TAG="${{VC3D_TAG:-{tag}}}"' in get
+    assert asset in get and 'echo "$VC3D_SHA256  $VC3D_ASSET" | sha256sum -c -' in get
+    lead = (root / "kaggle" / "lead_screen" / "script.py").read_text()
+    assert f"VC3D_SHA = '{sha}'" in lead and f"'{tag}'" in lead and asset in lead
 
 
 def test_torch_cpu_requirements_are_hash_pinned():
