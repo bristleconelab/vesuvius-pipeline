@@ -64,10 +64,27 @@ def test_window_score_needs_enough_valid_lines():
 
 
 def test_generated_scripts_match_lane():
-    body = (ROOT / "kaggle" / "inksdk" / "lane.py").read_text()
-    for target in ("306b", "0358"):
+    mk = importlib.util.spec_from_file_location("inksdk_make", ROOT / "kaggle" / "inksdk" / "make_script.py")
+    make = importlib.util.module_from_spec(mk)
+    mk.loader.exec_module(make)
+    for target in ("306b", "0358", "hx0358top"):
         script = (ROOT / "kaggle" / "inksdk" / target / "script.py").read_text()
-        assert script == body.replace("TARGET = '306b'\n", f"TARGET = '{target}'\n")
+        assert script == make.build(target)
+        assert f"TARGET = '{target}'" in script
         meta = json.loads((ROOT / "kaggle" / "inksdk" / target / "kernel-metadata.json").read_text())
         assert meta["id"] == f"KAGGLE_USER/vesuvius-inksdk-{target}" and meta["is_private"] is True
         assert meta["machine_shape"] == "NvidiaTeslaT4" and meta["enable_internet"] is True
+
+
+def test_hx_shelf_pack_is_even_and_disjoint():
+    spec2 = importlib.util.spec_from_file_location("inksdk_hx", ROOT / "kaggle" / "inksdk" / "hx0358top" / "script.py")
+    hx = importlib.util.module_from_spec(spec2)
+    spec2.loader.exec_module(hx)
+    sizes = [(301, 517), (120, 99), (77, 640), (301, 33), (5, 5)]
+    pos, (H, W) = hx.shelf_pack(sizes, 700, 64)
+    boxes = [(pos[i][0], pos[i][1], pos[i][0] + h, pos[i][1] + w) for i, (h, w) in enumerate(sizes)]
+    assert all(y % 2 == 0 and x % 2 == 0 for y, x in pos.values())
+    assert all(b[2] <= H and b[3] <= W for b in boxes)
+    for i, a in enumerate(boxes):
+        for b in boxes[i + 1:]:
+            assert a[2] <= b[0] or b[2] <= a[0] or a[3] <= b[1] or b[3] <= a[1]

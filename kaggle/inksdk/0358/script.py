@@ -58,6 +58,9 @@ CONFIGS = {
                  no_start_after_h=9.5, kill_at_h=10.8, shard=(0, 1), delete_runs=False),
     # PHerc0358 windings from vesuvius-render-0358-0..3 (31 layers, surface = layer 15, 9.362 um). SHARD (i, n) takes every
     # n-th winding starting at i, for splitting the windings over several sessions.
+    # HerculeX 17-layer written-face stacks of PHerc0358 mosaics m001/m002 (vesuvius-herculex-ink-0358); see hx0358top.py.
+    'hx0358top': dict(voxel_um=9.362, roi=None, box=None, profiles=['reader-v3', 'argus-v2', 'trace', 'studio'],
+                      no_start_after_h=9.5, kill_at_h=10.8, shard=(0, 1), delete_runs=False),
     '0358': dict(voxel_um=9.362, roi=None, box=None, glob='/kaggle/input/**/RENDERS/w*.zarr',
                  profiles=['studio', 'reader-v3', 'argus-v2', 'trace', 'ahn-s0', 'ahn-s1', 'ahn-s2'],
                  no_start_after_h=9.5, kill_at_h=10.8, shard=(0, 1), delete_runs=True),
@@ -362,7 +365,8 @@ def job_cmd(seg, key, sd):
     return cmd, out
 
 
-def run_all(segs, keys):
+def run_all(segs, keys, post_fn=None):
+    post_fn = post_fn or post_segment_safe
     jobs = []
     for tier in sorted({PROFILES[k][3] for k in keys}):
         for seg in segs:
@@ -398,7 +402,7 @@ def run_all(segs, keys):
             final = not any(s == seg for s, _ in pending)
             posted[seg] = snapshot(seg)
             with post_lock:
-                post_futures.append(post.submit(post_segment_safe, seg, segs[seg], dict(status), final))
+                post_futures.append(post.submit(post_fn, seg, segs[seg], dict(status), final))
 
     while pending or running:
         for g in range(ngpu):
@@ -451,7 +455,7 @@ def run_all(segs, keys):
     for seg in segs:
         if posted.get(seg) != snapshot(seg) and hours() < 11.5:
             posted[seg] = snapshot(seg)
-            post_segment_safe(seg, segs[seg], dict(status), True)
+            post_fn(seg, segs[seg], dict(status), True)
     return status
 
 
