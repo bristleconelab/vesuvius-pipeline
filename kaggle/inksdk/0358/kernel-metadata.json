@@ -1,0 +1,21 @@
+{
+  "id": "KAGGLE_USER/vesuvius-inksdk-0358",
+  "title": "vesuvius inksdk 0358",
+  "code_file": "script.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [
+    "KAGGLE_USER/vesuvius-render-0358-0",
+    "KAGGLE_USER/vesuvius-render-0358-1",
+    "KAGGLE_USER/vesuvius-render-0358-2",
+    "KAGGLE_USER/vesuvius-render-0358-3"
+  ],
+  "model_sources": []
+}

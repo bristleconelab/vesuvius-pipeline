@@ -211,6 +211,7 @@ and what this implies: [docs/wrap-drift.md](docs/wrap-drift.md).
 | `kaggle/render_0358/part0..3` | 31-layer surface volumes of the flattened PHerc0358 windings, four parts (vendored, MIT) |
 | `kaggle/herculex_0358/` | whole-scroll unwrap of PHerc0358 (CT -> sheet nodes -> exact winding levels -> laid-out tifxyz pieces) with HerculeX's cuda lane on 2x T4 (HerculeX @ 9f59e966, MIT); ink off by default; resumable across sessions |
 | `kaggle/herculex_ink_0358/` | HerculeX's ink stage (Reader v3, MIT) on the 263 display mosaics of >= 4 cm2 of `herculex_0358`, largest first on both T4s, then 384 px window triage (row/column ink-profile std) with contact sheets; resumable |
+| `kaggle/inksdk/` (`lane.py`, `make_script.py`) | ink stage on 2x T4 with [ink-sdk](https://github.com/LimeGS/ink-sdk) (MIT): Reader V3, Argus V2, TRACE v3B, Studio, A-hn, both depth directions; z-score mean, TRACE v3B x A-hn and Studio x Reader V3 ensembles; window triage. `306b/` is the positive control on the PHerc0306B claim render, `0358/` runs on the `render_0358` windings |
 
 Each folder has a `kernel-metadata.json` with the placeholder owner `KAGGLE_USER`. Push one with your account:
 
