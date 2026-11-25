@@ -14,7 +14,7 @@ CELLS = [
 
 Scores the public **Hecate 9.6 um** ink model (scrollprize/hecate) on three labelled PHerc0841 segments that are not
 in the public 9 um models' training set, with the same metric and label alignment as
-[vesuvius-pipeline](https://github.com/ismoilovdevml/vesuvius-pipeline) `scripts/bakeoff_hecate.sh`. Only the
+[vesuvius-pipeline](https://github.com/bristleconelab/vesuvius-pipeline) `scripts/bakeoff_hecate.sh`. Only the
 supervision-mask bounding box (+128 px) is run. Needs: GPU accelerator, internet on."""),
     ("code", """import subprocess, sys, os, hashlib, json, glob, time, shutil, urllib.request
 def sh(cmd):
@@ -22,7 +22,7 @@ def sh(cmd):
     print(r.stdout[-3000:], r.stderr[-3000:]); r.check_returncode(); return r.stdout
 sh('pip install -q "zarr>=3" tifffile imagecodecs awscli')
 if not os.path.isdir('/kaggle/working/vp'):
-    sh('git clone -q --depth 1 https://github.com/ismoilovdevml/vesuvius-pipeline /kaggle/working/vp')
+    sh('git clone -q --depth 1 https://github.com/bristleconelab/vesuvius-pipeline /kaggle/working/vp')
 sys.path.insert(0, '/kaggle/working/vp/src')
 import torch; print('torch', torch.__version__, 'cuda', torch.cuda.is_available(), torch.cuda.get_device_name(0) if torch.cuda.is_available() else '')"""),
     ("code", """W = '/kaggle/working/hec'; os.makedirs(W, exist_ok=True)

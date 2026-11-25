@@ -16,7 +16,7 @@ def sh(cmd):
 
 sh('pip install -q "zarr>=3" tifffile imagecodecs awscli')
 if not os.path.isdir('/kaggle/working/vp'):
-    sh('git clone -q --depth 1 https://github.com/ismoilovdevml/vesuvius-pipeline /kaggle/working/vp')
+    sh('git clone -q --depth 1 https://github.com/bristleconelab/vesuvius-pipeline /kaggle/working/vp')
 sys.path.insert(0, '/kaggle/working/vp/src')
 import numpy as np, tifffile, torch, zarr
 from PIL import Image

@@ -277,3 +277,15 @@ alignment shifts at once with an FFT-based masked correlation. On a synthetic 58
 ## Licence
 
 MIT. Data: CC BY-NC 4.0 (new scans) / EduceLab Data License (legacy scans); see `docs/data-inventory.md`.
+
+---
+
+<p align="center">
+  <sub>Powered by</sub><br>
+  <a href="https://github.com/bristleconelab">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/img/brand/bristleconelab-horizontal-on-dark.svg">
+      <img src="docs/img/brand/bristleconelab-horizontal-on-light.svg" alt="bristlecone lab" height="36">
+    </picture>
+  </a>
+</p>
