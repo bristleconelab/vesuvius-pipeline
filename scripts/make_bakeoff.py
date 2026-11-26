@@ -59,11 +59,11 @@ def main() -> None:
     fig.savefig(ROOT / "figures" / "bakeoff_auc.png", dpi=110)
 
     readme = ROOT / "README.md"
-    t = readme.read_text()
+    t = readme.read_text(encoding="utf-8")
     if START in t:
         pre, rest = t.split(START, 1)
         _, post = rest.split(END, 1)
-        readme.write_text(pre + START + "\n" + md + "\n" + END + post)
+        readme.write_text(pre + START + "\n" + md + "\n" + END + post, encoding="utf-8")
     print(md)
 
 

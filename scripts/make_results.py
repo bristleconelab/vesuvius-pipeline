@@ -75,11 +75,11 @@ def main() -> None:
     md = table(rows)
     figure(rows)
     readme = ROOT / "README.md"
-    text = readme.read_text()
+    text = readme.read_text(encoding="utf-8")
     if START in text and END in text:
         pre, rest = text.split(START, 1)
         _, post = rest.split(END, 1)
-        readme.write_text(pre + START + "\n" + md + "\n" + END + post)
+        readme.write_text(pre + START + "\n" + md + "\n" + END + post, encoding="utf-8")
     print(md)
 
 
